@@ -1,0 +1,35 @@
+Ok, so we have got some rudiments of a level screen, but how does the game
+keep track of where you are and what other levels you can travel to?
+
+I guess we can have a map of all the levels that are connected to one another
+with a linked list type of thing. Some levels are not connected though so they
+will probably be stored in a different file or whatever.
+
+I guess we can have some sort of addressing system that looks like
+"map-file.ext:level" for when you want to send the player to a level outside
+of the current map. Also keep in mind sometimes a new path can be opened in the
+existing map but we can figure that out later I think.
+
+yeah ok so we have this map file which stores a whole heap of levels. Format
+doesn't matter much, can use whatever seems pertinent, but more importantly,
+how are we going to create this file? There's too much stuff in these to not
+have some kind of editor, which I guess means I am going to have to create one.
+Not super keen about that but oh well.
+
+For each individual level, it needs to be able to set the background image, an
+optional name, place entities that are in it by default, set some config on
+them, and it needs to set what exits it has, and also how many enemies it can
+have in it at the same time.
+
+The exits that exist on each level are then used to construct a graph of the
+overall map, and then you can traverse to the other maps to set them up etc.
+
+That's a lot of stuff and not all of it is very well defined right now, so lets
+see if we can think of an MVP that is easy to adapt into the full banana....
+ - create a map, it starts with a level in the center.
+ - set background, size, orientation, description, and exits.
+ - be able to look at graph thing and select levels to edit etc.
+ - save to a format the N64 can read.
+
+I don't reckon we are gonna be able to do a full on "load it straight from disk
+into a struct with no diversions" type of deal but we can 

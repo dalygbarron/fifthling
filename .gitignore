@@ -1,0 +1,10 @@
+filesystem
+build
+*.o
+*.z64
+tools/editor/editor
+tools/editor/resources.c
+*.ui
+compile_commands.json
+.DS_Store
+.cache

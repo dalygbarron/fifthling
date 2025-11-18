@@ -1,0 +1,14 @@
+Yeah just thinking about what we need in the base game...
+
+we have the text box down the bottom and the map next to it. Neither of those
+are interactive so they hardly even count as UI, but then you have also got
+things like the inventory and interacting with characters.
+
+I'd kind of be inclined to just implement them as seperate things and simply
+have some functions for rendering boxes etc in common.
+
+We are going to need some kind of scene stack system though so we can have the
+inventory window appear on top and let us pick an item etc.
+
+Yep OK, so we are doing the old scene stack. Lets think about how that is going
+to work in C.
