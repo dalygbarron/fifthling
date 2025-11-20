@@ -1,49 +1,29 @@
-/* frame.c --
- mount pushbutton of push.c in a frame widget
- */
-
-#include <Xm/Xm.h>
 #include <Xm/PushB.h>
-#include <Xm/Frame.h>  /* header file for frame stuff */
+#include <Xm/RowColumn.h>
 
-/* Prototype callback */
-
-void pushed_fn(Widget , XtPointer , 
-               XmPushButtonCallbackStruct *);
-
-int main(int argc, char **argv)
-{
-    Widget        top_wid, button, frame;
+int main(int argc, char **argv) {
+    Widget top_widget, rowcol;
     XtAppContext app;
-    
 
-    top_wid = XtVaAppInitialize(&app, "Push", NULL, 0,
+    top_widget = XtVaAppInitialize(&app, "rowcol", NULL, 0,
         &argc, argv, NULL, NULL);
 
+    rowcol = XtVaCreateManagedWidget("rowcolumn",
+        xmRowColumnWidgetClass, top_widget, NULL);
 
-    frame = XtVaCreateManagedWidget("frame",
-         xmFrameWidgetClass, top_wid,
-         XmNshadowType, XmSHADOW_IN,
-         NULL);
+    (void) XtVaCreateManagedWidget("button 1",
+        xmPushButtonWidgetClass, rowcol, NULL);
 
+    (void) XtVaCreateManagedWidget("button 2",
+        xmPushButtonWidgetClass, rowcol, NULL);
 
-    button = XmCreatePushButton(frame, "Push_me",
-        NULL, 0);
+    (void) XtVaCreateManagedWidget("button 3",
+        xmPushButtonWidgetClass, rowcol, NULL);
 
-    XtManageChild(button);
+    (void) XtVaCreateManagedWidget("button 4",
+        xmPushButtonWidgetClass, rowcol, NULL);
 
-    XtAddCallback(button, XmNactivateCallback, (XtCallbackProc)pushed_fn, NULL);
-
-    XtRealizeWidget(top_wid);
+    XtRealizeWidget(top_widget);
     XtAppMainLoop(app);
-
     return 0;
-}
-
-void
-pushed_fn(Widget w, XtPointer client_data, 
-          XmPushButtonCallbackStruct *cbs)
-
-{
-    printf("Don't Push Me!!\n");
 }
