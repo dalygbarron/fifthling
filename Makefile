@@ -53,8 +53,8 @@ $(FILE_DIR)/fonts/%.font64: assets/fonts/%.ttf
 	@echo "    [FONT] $@"
 	@$(N64_TOOLS)/mkfont -o $(FILE_DIR)/fonts -s 14 $<
 
-tools:
-	$(MAKE) -C tools/editor push
+editor:
+	$(MAKE) -C editor all
 
 all: main.z64 tools
 
