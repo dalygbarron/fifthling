@@ -56,12 +56,11 @@ $(FILE_DIR)/fonts/%.font64: assets/fonts/%.ttf
 editor:
 	$(MAKE) -C editor all
 
-all: main.z64 tools
+all: main.z64
 
 clean:
 	rm -rf $(BUILD_DIR) $(FILE_DIR) main.z64
-	$(MAKE) -C tools/editor clean
 	
-.PHONY: clean tools all
+.PHONY: clean all
 
 -include $(wildcard $(BUILD_DIR)/*.d)

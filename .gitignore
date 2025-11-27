@@ -1,10 +1,10 @@
 filesystem
+editor/__pycache__
 build
 *.o
 *.z64
-tools/editor/editor
-tools/editor/resources.c
 *.ui
+*.swp
 compile_commands.json
 .DS_Store
 .cache

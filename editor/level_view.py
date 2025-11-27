@@ -1,15 +1,24 @@
 import tkinter as tk
-from PIL import Image, ImageTk
-from enum import Enum
+from PIL import Image
+from enum import StrEnum
 
 class LevelView(tk.Frame):
-    class EditType(Enum):
+    class EditType(StrEnum):
         SELECT = "SELECT"
         MOVE = "MOVE"
         SCALE = "SCALE"
 
-    def __init__(self):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
         self.edit_mode = tk.StringVar(
             master = self,
-            value = LevelView.EditType.SELECT)
-        self.label = tk.Label(master = self, text = "This is where pic goes")
+            value = self.EditType.SELECT)
+        self.button_bar = tk.Frame(self)
+        self.edit_buttons = []
+        for i, et in enumerate(self.EditType):
+            b = tk.Button(self.button_bar, text = et)
+            self.edit_buttons.append(b)
+            b.pack(side = "left")
+        self.button_bar.pack()
+        self.canvas = tk.Canvas(self, bg = 'white', width = 640, height = 360)
+        self.canvas.pack()
