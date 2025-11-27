@@ -9,14 +9,13 @@ uint32_t const WHITE = 0xffffffff;
 
 int main() {
     debug_init(DEBUG_FEATURE_ALL);
-    assert(dfs_init( DFS_DEFAULT_LOCATION ) == DFS_ESUCCESS);
+    assert(dfs_init(DFS_DEFAULT_LOCATION) == DFS_ESUCCESS);
     display_init(
         RESOLUTION_640x480,
         DEPTH_16_BPP,
         3,
         GAMMA_NONE,
-        ANTIALIAS_RESAMPLE_FETCH_ALWAYS
-    );
+        ANTIALIAS_RESAMPLE_FETCH_ALWAYS);
     joypad_init();
     dfs_init(DFS_DEFAULT_LOCATION);
     rdpq_init();

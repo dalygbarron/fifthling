@@ -1,0 +1,74 @@
+Yes, I know they are my beloved, but I think that in the name of simplicity it
+would be good to avoid having to add them to this game.
+
+Instead, what I propose is to simply have a sort of queue of UI actions to be
+executed within the scene. Since we may need branching what I was thinking is
+that you could possibly add a callback to the queue as well that could react to
+previous inputs or something.
+
+So lets say for example, when you talk to a given character, if he likes you
+based on some preset flag, he will say a box worth of dialogue, then open a shop
+menu, then after the shop menu he will have two different parting dialogue boxes
+depending on whether or not you bought something, and if a certain other flag
+has been set, he might say a further box until that flag gets unset.
+If he doesn't like you it will skip to the inventory part and never do the
+special bit at the end.
+
+So first of all, there will be a function handling the fact you have interacted
+with this guy. It can check all of the switches that are not part of the
+conversation and thus create entries for the whole conversation ahead of time.
+The only really dynamic part is whether you bought something at the shop or not
+and this will be handled by a special entry with a callback that reads the input
+from the previous item (each one passes an int to the next), and then
+dynamically inserts new items at the front of the queue (when an item is being
+processed we can view it as already removed from the queue. It's data is copied
+elsewhere in case of overwrite.)
+
+So after that first function if he likes you and that special flag isn't set:
+(dialogue 1)(shop)(callback for more dialogue)
+
+
+Yeah honestly I think that is a pretty good system. It's still got a level of
+complexity to it of course but it's not even on the same level as embedding an
+interpreter or implementing stack swapping, and since we have already got a
+scene stack and this queue exists on a per scene basis, it means that we can
+also use it to queue scene pushes and and wait for scenes and stuff.
+
+Although on that note, normally the queue item itself returns a value that goes
+to the next entry, but if that item pushed a scene onto the scene stack, should
+we pass that scene's return value to the next entry? Actually come to think of
+it, the queue item itself never returns the value because it's already deleted
+by the time the thing is done, like a text box even, so that next value is
+always coming from somewhere else. That sounds a little annoying to figure out
+but yeah, scenes should return values.
+
+
+what would that example above look like as C code then?
+```
+// each level has it's own C file and the converter generates some binding
+// stuff, you just need to implement void update_levelname which is a function
+// that runs when the level starts and whenever other activities stop.
+
+#include <fifth.h>
+
+static void george_shop_callback(int purchase) {
+
+}
+
+int levelname_george(item_t *item) {
+    if (item) return 0; // can't use items on george.
+    int friend = *scenes_get_data("key:george_friend");
+    int special = *scenes_get_data("key:george_special");
+    // these functions always add to the queue of the topmost scene which this
+    // should always be when this function is run.
+    scenes_queue(SPEAK, "george", "Hello my dear friend");
+    scenes_queue(SHOP); // TODO: system of unique shop content etc.
+    scenes_queue_(CB, )
+
+}
+
+
+void update_levelname(int entrance) {
+    // no special logic needed.
+}
+```

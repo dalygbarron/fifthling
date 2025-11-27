@@ -1,0 +1,24 @@
+yeah I have decided to kind of remove the scene system actually. We will just
+use globals for game global state.
+
+Done well, it doesn't add confusion really, the only problem that seems like a
+real thing rather than a stack overflow induced ghost vision is that saving and
+loading have to be tested carefully to make sure state doesn't leak between
+games or get lost. Main points to deal with that are:
+ - keep global state centralised in a few objects so it's harder to forget
+   about something.
+ - Ideally figure out a way of doing some kind of automatic testing that can
+   identify state leakage or lost state. Maybe we could hash the global game
+   state? that assumes we remember to put everything into the hash as well tho.
+
+Ok so as well as relying on global state, this now means that basically
+everything that happens in the game counts as a kind of level or something that
+happens in it.
+So the level needs to have a quite robust state machine thing to handle the
+different things you can be doing in it, but it needed that already so it
+shouldn't be too big of a deal. Some states like say for example rendering a
+settings menu will likely use completely different code but many will be doing
+similar things.
+
+Also, I want to make it that each "map" is an overlay that gets loaded into
+memory and dynamically linked when you go to it.

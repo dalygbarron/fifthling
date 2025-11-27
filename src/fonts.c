@@ -7,8 +7,7 @@ static rdpq_font_t *font_objs[fonts_COUNT - 1];
 void fonts_init() {
     assertf(
         !initialised,
-        "Trying to init font module when already initialised"
-    );
+        "Trying to init font module when already initialised");
     initialised = 1;
     font_objs[fonts_BODY - 1] = rdpq_font_load("rom:/fonts/ubuntu.font64");
     for (int i = fonts_BODY; i < fonts_COUNT; i++) {
