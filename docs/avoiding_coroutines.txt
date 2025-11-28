@@ -72,3 +72,13 @@ void update_levelname(int entrance) {
     // no special logic needed.
 }
 ```
+
+
+
+
+Ok last thing I wanna meditate upon for a moment is how the result from one
+action gets to the next one. I think it should be passed to acts_exec(), so that
+kind of passes the buck to the level code to figure out what to pass and when.
+Hmmmmmm. I guess we can just have a "result" variable which gets set when say a
+shop scene ends, and whatever happens to be in there at the time can be passed
+to acts_exec().

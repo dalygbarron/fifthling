@@ -1,11 +1,12 @@
-V=1
-SOURCE_DIR=src
-BUILD_DIR=build
-FILE_DIR=filesystem
-N64_ROM_REGIONFREE=true
-N64_ROM_SAVETYPE=eeprom4k
-N64_TOOLS=$(N64_INST)/bin
+V = 1
+SOURCE_DIR = src
+BUILD_DIR = build
+FILE_DIR = filesystem
+N64_ROM_REGIONFREE = true
+N64_ROM_SAVETYPE = eeprom4k
+N64_TOOLS = $(N64_INST)/bin
 include $(N64_INST)/include/n64.mk
+N64_C_AND_CXX_FLAGS += -Iinclude
 
 all: main.z64
 .PHONY: all
